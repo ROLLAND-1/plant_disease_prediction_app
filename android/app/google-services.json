@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "307648890030",
+    "project_id": "plant-disease-prediction-2de11",
+    "storage_bucket": "plant-disease-prediction-2de11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307648890030:android:9e25352c4cde4774e5d93f",
+        "android_client_info": {
+          "package_name": "com.example.flutter_onboarding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307648890030-maeamhfcj8qn5j9nv9ep2ne9aotose2r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLj9vaVLAosaOdGCbEuOGMPqCDFImhJjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307648890030-maeamhfcj8qn5j9nv9ep2ne9aotose2r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
