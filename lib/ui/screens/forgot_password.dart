@@ -1,11 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onboarding/constants.dart';
+import 'package:flutter_onboarding/service/firebase_auth.dart';
 import 'package:flutter_onboarding/ui/screens/widgets/custom_textfield.dart';
 import 'package:flutter_onboarding/ui/screens/signin_page.dart';
 import 'package:page_transition/page_transition.dart';
 
-class ForgotPassword extends StatelessWidget {
+class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
+
+  @override
+  State<ForgotPassword> createState() => _ForgotPasswordState();
+}
+
+class _ForgotPasswordState extends State<ForgotPassword> {
+  late TextEditingController emailController;
+  late bool isLoading;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController(text: '');
+    isLoading = false;
+  }
+  
+  void onSendPasswordResetLink()async{
+    setState(() {
+      isLoading = true;
+    });
+    var res = await AuthService.instance.forgotPassword(emailController.text);
+    setState(() {
+      isLoading = false;
+    });
+    if(res is String){
+      showDialog(context: context, builder: (_)=>AlertDialog(
+        title: const Text('Error'),
+        content: Text(res),
+        actions: [
+          TextButton(onPressed: ()=>Navigator.pop(context),child: const Text('OK'),)
+        ],
+      ));
+      return;
+    }
+    showDialog(context: context, builder: (_)=>AlertDialog(
+        title: const Text('Success'),
+        content: const Text('Email reset link has been sent successfully'),
+        actions: [
+          TextButton(onPressed: ()=>Navigator.pop(context),child: const Text('OK'),)
+        ],
+      ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +73,16 @@ class ForgotPassword extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              const CustomTextfield(
+              CustomTextfield(
+                textEditingController: emailController,
                 obscureText: false,
                 hintText: 'Enter Email',
                 icon: Icons.alternate_email,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: 
+                isLoading?null:
+                onSendPasswordResetLink,
                 child: Container(
                   width: size.width,
                   decoration: BoxDecoration(
@@ -45,8 +91,14 @@ class ForgotPassword extends StatelessWidget {
                   ),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: const Center(
-                    child: Text(
+                  child:  Center(
+                    child: 
+                    isLoading?
+                    const CircularProgressIndicator(
+                      color: Colors.white,
+                    )
+                    :
+                    const Text(
                       'Reset Password',
                       style: TextStyle(
                         color: Colors.white,
@@ -61,7 +113,7 @@ class ForgotPassword extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushReplacement(
+                  Navigator.push(
                       context,
                       PageTransition(
                           child: const SignIn(),
