@@ -39,7 +39,7 @@ class _SignUpState extends State<SignUp> {
       ));
       return;
     }
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const RootPagegv  ()), (route) => false);
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const RootPage  ()), (route) => false);
   }
 
   @override
